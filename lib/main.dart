@@ -1,4 +1,4 @@
-import 'package:demo/HomeScreen.dart';
+import 'package:demo/ui/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.black),
+      theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white.withOpacity(0.75),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
     );

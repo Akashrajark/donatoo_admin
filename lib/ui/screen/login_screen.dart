@@ -1,7 +1,9 @@
+import 'package:demo/values/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +24,19 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Login",
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.white70,
-                        ),
+                    style: GoogleFonts.roboto(
+                      color: Colors.white,
+                      textStyle: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 250,
                     child: TextField(
-                      style: Theme.of(context).textTheme.bodyLarge,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(0),
-                        filled: true,
-                        fillColor: Colors.white70,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(2),
-                          borderSide: BorderSide.none,
-                        ),
                         hintText: 'Username',
-                        hintStyle: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                   ),
@@ -50,13 +44,30 @@ class HomeScreen extends StatelessWidget {
                     height: 15,
                   ),
                   const SizedBox(
+                    width: 250,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 15,
                   ),
-                  const Material(
-                    color: Colors.blue,
+                  Material(
+                    color: primaryColor.withOpacity(0.75),
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text('Login'),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: Text(
+                        'Login',
+                        style: GoogleFonts.roboto(
+                          color: Colors.white,
+                          textStyle: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
                     ),
                   ),
                 ],
