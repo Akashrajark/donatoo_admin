@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../values/colors.dart';
+import '../../values/colors.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData iconData;
   final String label;
   final Function() onTap;
   final bool isActive;
+  final bool halfDividerHeightTop;
+  final bool halfDividerHeightBottom;
   const CustomIconButton({
     super.key,
     required this.iconData,
     required this.label,
     required this.onTap,
     this.isActive = true,
+    this.halfDividerHeightTop = true,
+    this.halfDividerHeightBottom = true,
   });
 
   @override
@@ -23,14 +27,14 @@ class CustomIconButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isActive ? secondaryColor : primaryColor,
-          border: const Border(
+          border: Border(
             top: BorderSide(
-              width: 1,
-              color: secondaryColor,
+              width: halfDividerHeightTop ? 0.6 : 1,
+              color: secondaryColor.withOpacity(.2),
             ),
             bottom: BorderSide(
-              width: 1,
-              color: secondaryColor,
+              width: halfDividerHeightBottom ? 0.6 : 1,
+              color: secondaryColor.withOpacity(.2),
             ),
           ),
         ),
