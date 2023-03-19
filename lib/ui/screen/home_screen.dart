@@ -1,5 +1,9 @@
 import 'package:demo/ui/screen/dashboard.dart';
+import 'package:demo/ui/screen/feedback_screen.dart';
+import 'package:demo/ui/screen/login_screen.dart';
 import 'package:demo/ui/screen/organization_management.dart';
+import 'package:demo/ui/screen/organization_report_screen.dart';
+import 'package:demo/ui/screen/request_report_screen.dart';
 import 'package:demo/ui/screen/request_management.dart';
 import 'package:demo/ui/screen/user_screen.dart';
 import 'package:demo/values/colors.dart';
@@ -20,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     _tabController.addListener(() {
       setState(() {});
     });
@@ -38,8 +42,10 @@ class _HomeScreenState extends State<HomeScreen>
       case 3:
         return "User";
       case 4:
-        return "Complaint";
+        return "Request Report";
       case 5:
+        return "Organization Report";
+      case 6:
         return "Feedback";
       default:
         return "";
@@ -66,25 +72,24 @@ class _HomeScreenState extends State<HomeScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [
-          const OrganizationManagement(),
-          const Dashboard(),
-          const RequestManagement(),
-          const UserScreen(),
-          Container(
-            color: Colors.green,
-          ),
-          Container(
-            color: Colors.indigo,
-          ),
+        children: const [
+          Dashboard(),
+          RequestManagement(),
+          OrganizationManagement(),
+          UserScreen(),
+          RequestReportScreen(),
+          OrganizationReportScreen(),
+          FeedBackScreen()
         ],
       ),
       drawer: SizedBox(
-        width: 240,
+        width: 300,
         child: Material(
           color: primaryColor,
           borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
           elevation: 0,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -143,55 +148,140 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   CustomIconButton(
                     iconData: Icons.rule,
-                    label: "Complaint",
+                    label: "Request Report",
                     onTap: () {
                       _tabController.animateTo(4);
                     },
                     isActive: _tabController.index == 4,
                   ),
                   CustomIconButton(
-                    iconData: Icons.forum,
+                    iconData: Icons.rule,
+                    label: "Organization Report",
                     onTap: () {
                       _tabController.animateTo(5);
                     },
-                    label: "Feedback",
                     isActive: _tabController.index == 5,
-                    halfDividerHeightBottom: false,
+                  ),
+                  CustomIconButton(
+                    iconData: Icons.forum,
+                    onTap: () {
+                      _tabController.animateTo(6);
+                    },
+                    label: "Feedback",
+                    isActive: _tabController.index == 6,
+                  ),
+                  CustomIconButton(
+                    isActive: false,
+                    iconData: Icons.logout,
+                    label: "Log out",
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                          child: SizedBox(
+                            width: 330,
+                            height: 140,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Are you sure you want to log out?",
+                                      style: GoogleFonts.roboto(
+                                        color: primaryColor,
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Material(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: primaryColor,
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            hoverColor:
+                                                Colors.white.withOpacity(0.1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30,
+                                                      vertical: 12),
+                                              child: Text(
+                                                "cancel",
+                                                style: GoogleFonts.roboto(
+                                                  color: secondaryColor,
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Material(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: primaryColor,
+                                          child: InkWell(
+                                            hoverColor:
+                                                Colors.white.withOpacity(0.1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            onTap: () {
+                                              Navigator.of(context)
+                                                  .pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const LoginScreen()),
+                                                      (route) => false);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 30,
+                                                      vertical: 12),
+                                              child: Text(
+                                                "log out",
+                                                style: GoogleFonts.roboto(
+                                                  color: secondaryColor,
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 12,
-                  top: 12,
-                ),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      const Icon(
-                        Icons.logout,
-                        size: 30,
-                        color: secondaryColor,
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "Log out",
-                        style: GoogleFonts.roboto(
-                          color: secondaryColor,
-                          textStyle: Theme.of(context).textTheme.titleLarge,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),

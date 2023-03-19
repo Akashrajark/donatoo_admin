@@ -1,6 +1,9 @@
+import 'package:demo/ui/widgets/custom_small_button.dart';
 import 'package:demo/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../widgets/custom_button.dart';
 
 class ActiveOrganizationSection extends StatelessWidget {
   const ActiveOrganizationSection({
@@ -315,32 +318,11 @@ class ActiveOrganizationSection extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: Material(
-                                      color: primaryColor,
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: InkWell(
-                                        hoverColor:
-                                            Colors.white.withOpacity(0.1),
-                                        borderRadius: BorderRadius.circular(10),
-                                        onTap: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            "Save",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.poppins(
-                                              color: secondaryColor,
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  CustomButton(
+                                    text: "Save",
+                                    onTap: () {},
+                                    textStyle:
+                                        Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ],
                               ),
@@ -421,6 +403,11 @@ class ActiveOrganizationSection extends StatelessWidget {
                         "Funded",
                       ),
                     ),
+                    DataColumn(
+                      label: Text(
+                        "",
+                      ),
+                    ),
                   ],
                   rows: List<DataRow>.generate(
                     20,
@@ -458,6 +445,18 @@ class ActiveOrganizationSection extends StatelessWidget {
                                 minWidth: 50,
                               ),
                               child: const Text("10000000")),
+                        ),
+                        DataCell(
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 120,
+                              minWidth: 50,
+                            ),
+                            child: CustomSmallButton(
+                              onTap: () {},
+                              text: "Detail",
+                            ),
+                          ),
                         ),
                       ],
                     ),
