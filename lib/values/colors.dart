@@ -6,3 +6,4 @@ const Color notificationIconBoxTextColor = Color(0xFF7A7A7A);
 const Color notificationIconBoxIconColor = Color(0xFF1C1B1F);
 const Color graphBgColor = Color(0xFF14121E);
 const Color graphTextColor = Color(0xFFF3F4FD);
+const double boxBorederRadius = 2.0;

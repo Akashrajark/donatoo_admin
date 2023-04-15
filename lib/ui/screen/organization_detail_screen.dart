@@ -108,7 +108,6 @@ class OrganizationDetail extends StatelessWidget {
                     child: SizedBox(),
                   ),
                   CustomButton(
-                    textStyle: Theme.of(context).textTheme.titleLarge,
                     text: "Ban Organization",
                     onTap: () {},
                   )

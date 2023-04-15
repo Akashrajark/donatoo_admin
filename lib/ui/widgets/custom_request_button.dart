@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../values/colors.dart';
 
-class CustomRequestButton extends StatelessWidget {
+class CustomRequestButton extends StatefulWidget {
   final String label, amount;
   final bool isActive;
   final Function() onTap;
@@ -16,12 +16,23 @@ class CustomRequestButton extends StatelessWidget {
   });
 
   @override
+  State<CustomRequestButton> createState() => _CustomRequestButtonState();
+}
+
+class _CustomRequestButtonState extends State<CustomRequestButton> {
+  bool isActive = false;
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Material(
-        borderRadius: BorderRadius.circular(10),
-        color: isActive ? primaryColor : Colors.white,
+    return Material(
+      elevation: isActive ? 100 : 0,
+      borderRadius: BorderRadius.circular(boxBorederRadius),
+      color: widget.isActive ? primaryColor : Colors.white,
+      child: InkWell(
+        onTap: () {},
+        onHover: (value) {
+          isActive = value;
+          setState(() {});
+        },
         child: SizedBox(
           width: 200,
           height: 100,
@@ -35,17 +46,17 @@ class CustomRequestButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  label,
+                  widget.label,
                   style: GoogleFonts.poppins(
-                    color: isActive ? secondaryColor : primaryColor,
+                    color: widget.isActive ? secondaryColor : primaryColor,
                     textStyle: Theme.of(context).textTheme.bodySmall,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
-                  amount,
+                  widget.amount,
                   style: GoogleFonts.poppins(
-                    color: isActive ? secondaryColor : primaryColor,
+                    color: widget.isActive ? secondaryColor : primaryColor,
                     textStyle: Theme.of(context).textTheme.headlineMedium,
                     fontWeight: FontWeight.w500,
                   ),

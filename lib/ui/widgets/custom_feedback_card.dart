@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../values/colors.dart';
 import 'custom_label_text.dart';
 
 class CustomFeedBackCard extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomFeedBackCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(boxBorederRadius),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

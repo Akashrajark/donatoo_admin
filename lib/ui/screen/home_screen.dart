@@ -9,6 +9,7 @@ import 'package:demo/ui/screen/user_screen.dart';
 import 'package:demo/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../widgets/custom_icon_button.dart';
 
@@ -29,6 +30,15 @@ class _HomeScreenState extends State<HomeScreen>
       setState(() {});
     });
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (Supabase.instance.client.auth.currentUser == null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      }
+    });
   }
 
   String getTitle() {
@@ -87,8 +97,8 @@ class _HomeScreenState extends State<HomeScreen>
         child: Material(
           color: primaryColor,
           borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
+            topRight: Radius.circular(boxBorederRadius),
+            bottomRight: Radius.circular(boxBorederRadius),
           ),
           elevation: 0,
           child: Column(
@@ -182,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen>
                             width: 330,
                             height: 140,
                             child: Material(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius:
+                                  BorderRadius.circular(boxBorederRadius),
                               child: Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -205,8 +216,8 @@ class _HomeScreenState extends State<HomeScreen>
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Material(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                              boxBorederRadius),
                                           color: primaryColor,
                                           child: InkWell(
                                             onTap: () {
@@ -214,8 +225,8 @@ class _HomeScreenState extends State<HomeScreen>
                                             },
                                             hoverColor:
                                                 Colors.white.withOpacity(0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(
+                                                boxBorederRadius),
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -235,14 +246,14 @@ class _HomeScreenState extends State<HomeScreen>
                                           ),
                                         ),
                                         Material(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                              boxBorederRadius),
                                           color: primaryColor,
                                           child: InkWell(
                                             hoverColor:
                                                 Colors.white.withOpacity(0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(
+                                                boxBorederRadius),
                                             onTap: () {
                                               Navigator.of(context)
                                                   .pushAndRemoveUntil(

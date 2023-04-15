@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../values/colors.dart';
+import 'custom_button.dart';
 import 'custom_label_text.dart';
-import 'custom_small_button.dart';
 
 class CustomReportCard extends StatelessWidget {
   const CustomReportCard({
@@ -12,7 +13,7 @@ class CustomReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(boxBorederRadius),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -50,7 +51,7 @@ class CustomReportCard extends StatelessWidget {
                   text: "Old Home",
                 ),
                 const Expanded(child: SizedBox()),
-                CustomSmallButton(
+                CustomButton(
                   text: "Done",
                   onTap: () {},
                 ),

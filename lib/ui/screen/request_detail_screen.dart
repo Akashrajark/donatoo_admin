@@ -112,7 +112,6 @@ class RequestDetail extends StatelessWidget {
                       Expanded(
                         child: CustomButton(
                           width: 0,
-                          textStyle: Theme.of(context).textTheme.titleLarge,
                           text: "Accept",
                           onTap: () {},
                         ),
@@ -123,7 +122,6 @@ class RequestDetail extends StatelessWidget {
                       Expanded(
                         child: CustomButton(
                           width: 0,
-                          textStyle: Theme.of(context).textTheme.titleLarge,
                           text: "Decline",
                           onTap: () {},
                         ),
