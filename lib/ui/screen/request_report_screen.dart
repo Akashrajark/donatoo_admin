@@ -1,7 +1,7 @@
-import 'package:demo/ui/widgets/custom_request_button.dart';
 import 'package:flutter/material.dart';
 import '../../values/colors.dart';
 import '../widgets/custom_report_card.dart';
+import '../widgets/custom_request_button.dart';
 
 class RequestReportScreen extends StatelessWidget {
   const RequestReportScreen({super.key});
@@ -12,7 +12,7 @@ class RequestReportScreen extends StatelessWidget {
       color: secondaryColor,
       child: Center(
         child: SizedBox(
-          width: 900,
+          width: 1000,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,14 +41,14 @@ class RequestReportScreen extends StatelessWidget {
                 child: Material(
                   child: SizedBox(
                     width: 890,
-                    child: Column(
-                      children: List.generate(
-                        10,
-                        (index) => const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: CustomReportCard(),
-                        ),
+                    child: ListView.separated(
+                      itemBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: CustomReportCard(),
                       ),
+                      separatorBuilder: (context, index) =>
+                          const Divider(height: 10),
+                      itemCount: 10,
                     ),
                   ),
                 ),

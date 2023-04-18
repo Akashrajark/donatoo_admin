@@ -25,35 +25,45 @@ class CustomReportCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomLabelText(
-                  label: "User ID:",
-                  text: "754",
+                const Expanded(
+                  child: CustomLabelText(
+                    label: "User ID:",
+                    text: "754",
+                  ),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                const CustomLabelText(
-                  label: "User Name:",
-                  text: "Wade Tucker",
+                const Expanded(
+                  child: CustomLabelText(
+                    label: "User Name:",
+                    text: "Wade Tucker",
+                  ),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                const CustomLabelText(
-                  label: "Organization ID:",
-                  text: "617",
+                const Expanded(
+                  child: CustomLabelText(
+                    label: "Organization ID:",
+                    text: "617",
+                  ),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                const CustomLabelText(
-                  label: "Organization Name:",
-                  text: "Old Home",
+                const Expanded(
+                  child: CustomLabelText(
+                    label: "Organization Name:",
+                    text: "Old Home",
+                  ),
                 ),
                 const Expanded(child: SizedBox()),
-                CustomButton(
-                  text: "Done",
-                  onTap: () {},
+                Expanded(
+                  child: CustomButton(
+                    text: "Done",
+                    onTap: () {},
+                  ),
                 ),
               ],
             ),
@@ -68,12 +78,15 @@ class CustomReportCard extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Text(
-              "sajhdgajshdasdhagsdhgajsgdjhaskdnaksjdasdaksjdasjdkajsdkjanskdasvdjhvasdassssssdddddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssss",
-              style: GoogleFonts.poppins(
-                color: Colors.black54,
-                textStyle: Theme.of(context).textTheme.bodySmall,
-                fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.only(right: 200),
+              child: Text(
+                "sajhdgajshdasdhagsdhgajsgdjhaskdnaksjdasdaksjdasjdkajsdkjanskdasvdjhvasdassssssdddddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssss",
+                style: GoogleFonts.poppins(
+                  color: Colors.black54,
+                  textStyle: Theme.of(context).textTheme.bodySmall,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             )
           ],
