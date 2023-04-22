@@ -1,4 +1,3 @@
-import 'package:demo/ui/screen/home_screen.dart';
 import 'package:demo/ui/screen/login_screen.dart';
 import 'package:demo/values/colors.dart';
 import 'package:flutter/material.dart';

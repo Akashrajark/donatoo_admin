@@ -1,5 +1,4 @@
 import 'package:demo/ui/widgets/custom_action_button.dart';
-import 'package:demo/values/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearch extends StatefulWidget {
@@ -38,7 +37,7 @@ class _CustomSearchState extends State<CustomSearch> {
             controller: _searchController,
             obscureText: false,
             decoration: const InputDecoration(
-              fillColor: secondaryColor,
+              fillColor: Colors.white,
               filled: true,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: 20,

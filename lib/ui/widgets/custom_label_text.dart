@@ -3,16 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomLabelText extends StatelessWidget {
   final String label, text;
+  final CrossAxisAlignment alignment;
   const CustomLabelText({
     super.key,
     required this.label,
     required this.text,
+    this.alignment = CrossAxisAlignment.start,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: alignment,
       children: [
         Text(
           label,
@@ -29,7 +31,7 @@ class CustomLabelText extends StatelessWidget {
           text,
           style: GoogleFonts.poppins(
             color: Colors.black87,
-            textStyle: Theme.of(context).textTheme.bodySmall,
+            textStyle: Theme.of(context).textTheme.bodyMedium,
             fontWeight: FontWeight.w500,
           ),
         ),

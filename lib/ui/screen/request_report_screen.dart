@@ -46,8 +46,11 @@ class RequestReportScreen extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 10),
                         child: CustomReportCard(),
                       ),
-                      separatorBuilder: (context, index) =>
-                          const Divider(height: 10),
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 10,
+                        color: secondaryColor,
+                        thickness: 10,
+                      ),
                       itemCount: 10,
                     ),
                   ),

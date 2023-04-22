@@ -22,26 +22,28 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: isActive ? secondaryColor : primaryColor,
-          border: Border(
-            top: BorderSide(
-              width: halfDividerHeightTop ? 0.6 : 1,
-              color: secondaryColor.withOpacity(.2),
-            ),
-            bottom: BorderSide(
-              width: halfDividerHeightBottom ? 0.6 : 1,
-              color: secondaryColor.withOpacity(.2),
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        color: isActive ? secondaryColor : primaryColor,
+        border: Border(
+          top: BorderSide(
+            width: halfDividerHeightTop ? 0.6 : 1,
+            color: secondaryColor.withOpacity(.2),
+          ),
+          bottom: BorderSide(
+            width: halfDividerHeightBottom ? 0.6 : 1,
+            color: secondaryColor.withOpacity(.2),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 10,
-          ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+        ),
+        child: InkWell(
+          onTap: onTap,
+          hoverColor: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(boxBorederRadius),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -51,7 +53,7 @@ class CustomIconButton extends StatelessWidget {
               Icon(
                 iconData,
                 color: isActive ? primaryColor : secondaryColor,
-                size: 30,
+                size: 25,
               ),
               const SizedBox(
                 width: 20,
@@ -60,7 +62,7 @@ class CustomIconButton extends StatelessWidget {
                 label,
                 style: GoogleFonts.roboto(
                   color: isActive ? primaryColor : secondaryColor,
-                  textStyle: Theme.of(context).textTheme.titleLarge,
+                  textStyle: Theme.of(context).textTheme.titleMedium,
                   fontWeight: FontWeight.w600,
                 ),
               ),
