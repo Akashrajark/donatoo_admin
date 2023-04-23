@@ -18,7 +18,7 @@ class NotificationIconBox extends StatelessWidget {
     return Material(
       elevation: 4,
       borderRadius: BorderRadius.circular(boxBorederRadius),
-      color: Colors.white,
+      color: Colors.white.withOpacity(.7),
       child: InkWell(
         onTap: () {},
         child: SizedBox(

@@ -65,19 +65,23 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: _tabController.index == 0,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           getTitle(),
           style: GoogleFonts.poppins(
-            color: primaryColor,
+            color: _tabController.index == 0 ? secondaryColor : primaryColor,
             textStyle: Theme.of(context).textTheme.headlineSmall,
             fontWeight: FontWeight.w600,
           ),
         ),
-        foregroundColor: primaryColor,
+        foregroundColor:
+            _tabController.index == 0 ? secondaryColor : primaryColor,
         elevation: 0,
-        backgroundColor: secondaryColor,
+        backgroundColor: _tabController.index == 0
+            ? primaryColor.withOpacity(0)
+            : secondaryColor,
       ),
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
