@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen>
         ],
       ),
       drawer: SizedBox(
-        width: 250,
+        width: 240,
         child: Material(
           color: primaryColor,
           borderRadius: const BorderRadius.only(
