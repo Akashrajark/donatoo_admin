@@ -1,4 +1,5 @@
 import 'package:demo/blocs/organizations/bloc/manage_organizations_bloc.dart';
+import 'package:demo/ui/widgets/custom_alert_dialog.dart';
 import 'package:demo/util/value_validators.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -35,7 +36,7 @@ class _AddOrganizationDialogState extends State<AddOrganizationDialog> {
   final TextEditingController _bankNameController = TextEditingController();
   final TextEditingController _ifscCodeController = TextEditingController();
   final TextEditingController _aboutOrgController = TextEditingController();
-  Uint8List? selectedImage;
+  PlatformFile? selectedImage;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -348,7 +349,14 @@ class _AddOrganizationDialogState extends State<AddOrganizationDialog> {
                           Navigator.pop(context);
                         }
                       } else {
-                        //show select image dialog
+                        showDialog(
+                          context: context,
+                          builder: (context) => const CustomAlertDialog(
+                            title: 'Select Image',
+                            message: 'Select an image to continue',
+                            primaryButtonLabel: 'Ok',
+                          ),
+                        );
                       }
                     },
                   ),
@@ -363,7 +371,7 @@ class _AddOrganizationDialogState extends State<AddOrganizationDialog> {
 }
 
 class PhotoPicker extends StatefulWidget {
-  final Function(Uint8List?) onPick;
+  final Function(PlatformFile?) onPick;
   const PhotoPicker({
     super.key,
     required this.onPick,
@@ -374,7 +382,7 @@ class PhotoPicker extends StatefulWidget {
 }
 
 class _PhotoPickerState extends State<PhotoPicker> {
-  Uint8List? pickedFile;
+  PlatformFile? pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -391,14 +399,14 @@ class _PhotoPickerState extends State<PhotoPicker> {
             );
 
             if (res != null) {
-              pickedFile = res.files.first.bytes;
-              widget.onPick(pickedFile);
+              pickedFile = res.files.first;
+              widget.onPick(res.files.first);
               setState(() {});
             }
           },
           child: pickedFile != null
               ? Image.memory(
-                  pickedFile!,
+                  pickedFile!.bytes!,
                   fit: BoxFit.cover,
                 )
               : Column(
@@ -409,7 +417,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
                       color: Colors.black26,
                     ),
                     Text(
-                      "upload photo",
+                      "Upload photo",
                       style: GoogleFonts.poppins(
                         color: Colors.black26,
                         textStyle: Theme.of(context).textTheme.bodySmall,

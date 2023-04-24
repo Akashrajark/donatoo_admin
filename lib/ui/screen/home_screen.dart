@@ -25,7 +25,11 @@ class _HomeScreenState extends State<HomeScreen>
   late TabController _tabController;
   @override
   void initState() {
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(
+      length: 7,
+      initialIndex: 2,
+      vsync: this,
+    );
     _tabController.addListener(() {
       setState(() {});
     });
@@ -258,7 +262,10 @@ class _HomeScreenState extends State<HomeScreen>
                                                 Colors.white.withOpacity(0.1),
                                             borderRadius: BorderRadius.circular(
                                                 boxBorederRadius),
-                                            onTap: () {
+                                            onTap: () async {
+                                              await Supabase
+                                                  .instance.client.auth
+                                                  .signOut();
                                               Navigator.of(context)
                                                   .pushAndRemoveUntil(
                                                       MaterialPageRoute(

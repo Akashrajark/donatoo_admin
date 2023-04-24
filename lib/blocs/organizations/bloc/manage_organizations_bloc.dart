@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:demo/values/strings.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
@@ -39,12 +40,18 @@ class ManageOrganizationsBloc
 
           emit(ManageOrganizationsSuccessState(organizations: organizations));
         } else if (event is AddOrganizationEvent) {
+          String path = await supabaseClient.storage.from('docs').uploadBinary(
+              'prescriptions/${DateTime.now().millisecondsSinceEpoch.toString()}${event.image.name}',
+              event.image.bytes!);
+
+          path = path.replaceRange(0, 5, '');
+
           await queryTable.insert({
             'name': event.name,
             'phone': event.phone,
             'email': event.email,
             'category': event.category,
-            'photo': '',
+            'photo': supabaseClient.storage.from('docs').getPublicUrl(path),
             'about_org': event.aboutOrg,
             'address_line': event.addressLine,
             'place': event.place,
@@ -60,12 +67,11 @@ class ManageOrganizationsBloc
             GetAllOrganizationEvent(status: 'active'),
           );
         } else if (event is EditOrganizationEvent) {
-          await queryTable.update({
+          Map<String, dynamic> updateDetails = {
             'name': event.name,
             'phone': event.phone,
             'email': event.email,
             'category': event.category,
-            'photo': '',
             'about_org': event.aboutOrg,
             'address_line': event.addressLine,
             'place': event.place,
@@ -76,7 +82,20 @@ class ManageOrganizationsBloc
             'bank_name': event.bankName,
             'branch_name': event.branchName,
             'ifsc_code': event.ifscCode,
-          }).eq('id', event.id);
+          };
+
+          if (event.image != null) {
+            String path = await supabaseClient.storage.from('docs').uploadBinary(
+                'prescriptions/${DateTime.now().millisecondsSinceEpoch.toString()}${event.image!.name}',
+                event.image!.bytes!);
+
+            path = path.replaceRange(0, 5, '');
+
+            updateDetails['photo'] =
+                supabaseClient.storage.from('docs').getPublicUrl(path);
+          }
+
+          await queryTable.update(updateDetails).eq('id', event.id);
           add(
             GetAllOrganizationEvent(status: 'active'),
           );
@@ -85,7 +104,8 @@ class ManageOrganizationsBloc
             'status': event.status,
           }).eq('id', event.id);
           add(
-            GetAllOrganizationEvent(status: 'active'),
+            GetAllOrganizationEvent(
+                status: event.status == 'active' ? 'banned' : 'active'),
           );
         } else if (event is DeleteOrganizationEvent) {
           await queryTable.delete().eq('id', event.id);

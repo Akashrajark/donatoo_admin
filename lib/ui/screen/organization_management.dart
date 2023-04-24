@@ -1,4 +1,5 @@
 import 'package:demo/ui/widgets/custom_action_button.dart';
+import 'package:demo/ui/widgets/custom_alert_dialog.dart';
 import 'package:demo/ui/widgets/custom_label_text.dart';
 import 'package:demo/values/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +22,22 @@ class _OrganizationManagementState extends State<OrganizationManagement> {
   final ManageOrganizationsBloc manageOrganizationsBloc =
       ManageOrganizationsBloc();
 
+  String status = 'active';
+  String? query;
+
   @override
   void initState() {
     super.initState();
-    manageOrganizationsBloc.add(GetAllOrganizationEvent(status: 'active'));
+    getOrganisations();
+  }
+
+  void getOrganisations() {
+    manageOrganizationsBloc.add(
+      GetAllOrganizationEvent(
+        status: status,
+        query: query,
+      ),
+    );
   }
 
   @override
@@ -40,40 +53,38 @@ class _OrganizationManagementState extends State<OrganizationManagement> {
                 BlocConsumer<ManageOrganizationsBloc, ManageOrganizationsState>(
               listener: (context, state) {
                 if (state is ManageOrganizationsFailureState) {
-                  //show dialog
+                  showDialog(
+                    context: context,
+                    builder: (context) => CustomAlertDialog(
+                      title: 'Failure',
+                      message: state.message,
+                      primaryButtonLabel: 'Ok',
+                    ),
+                  );
                 }
               },
               builder: (context, state) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    state is ManageOrganizationsLoadingState
-                        ? const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: CupertinoActivityIndicator(),
-                            ),
-                          )
-                        : const SizedBox(
-                            height: 30,
-                          ),
+                    const SizedBox(height: 30),
                     Wrap(
                       spacing: 20,
                       children: [
                         CustomRequestButton(
                           label: "Organizations",
-                          amount: "10",
+                          isActive: status == 'active',
                           onTap: () {
-                            manageOrganizationsBloc
-                                .add(GetAllOrganizationEvent(status: 'active'));
+                            status = 'active';
+                            getOrganisations();
                           },
                         ),
                         CustomRequestButton(
                           label: "Banned Organization",
-                          amount: "10",
+                          isActive: status == 'banned',
                           onTap: () {
-                            manageOrganizationsBloc
-                                .add(GetAllOrganizationEvent(status: 'banned'));
+                            status = 'banned';
+                            getOrganisations();
                           },
                         ),
                       ],
@@ -81,97 +92,108 @@ class _OrganizationManagementState extends State<OrganizationManagement> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 10,
-                            top: 10,
-                            right: 10,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              "Organizations",
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyLarge,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "Organizations",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyLarge,
-                                    fontWeight: FontWeight.w600,
+                          Expanded(
+                            child: CustomSearch(
+                              onSearch: (q) {
+                                query = q;
+                                getOrganisations();
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Material(
+                            borderRadius:
+                                BorderRadius.circular(boxBorederRadius),
+                            color: primaryColor,
+                            child: InkWell(
+                              hoverColor: Colors.white.withOpacity(0.1),
+                              borderRadius:
+                                  BorderRadius.circular(boxBorederRadius),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      BlocProvider<
+                                          ManageOrganizationsBloc>.value(
+                                    value: manageOrganizationsBloc,
+                                    child: const AddOrganizationDialog(),
                                   ),
-                                ),
-                              ),
-                              Expanded(
-                                child: CustomSearch(
-                                  onSearch: (query) {
-                                    manageOrganizationsBloc.add(
-                                        GetAllOrganizationEvent(
-                                            status: 'active', query: query));
-                                  },
-                                ),
-                              ),
-                              Material(
-                                borderRadius:
-                                    BorderRadius.circular(boxBorederRadius),
-                                color: primaryColor,
-                                child: InkWell(
-                                  hoverColor: Colors.white.withOpacity(0.1),
-                                  borderRadius:
-                                      BorderRadius.circular(boxBorederRadius),
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          BlocProvider<
-                                              ManageOrganizationsBloc>.value(
-                                        value: manageOrganizationsBloc,
-                                        child: const AddOrganizationDialog(),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 22, vertical: 13),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "ADD",
+                                      style: GoogleFonts.poppins(
+                                        color: secondaryColor,
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 22, vertical: 15),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "ADD",
-                                          style: GoogleFonts.poppins(
-                                            color: secondaryColor,
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        const Icon(
-                                          Icons.add,
-                                          color: secondaryColor,
-                                          size: 20,
-                                        )
-                                      ],
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    const Icon(
+                                      Icons.add,
+                                      color: secondaryColor,
+                                      size: 20,
+                                    )
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const CustomOrganizationCard(),
-                      ],
-                    )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Divider(height: 1),
+                    Expanded(
+                      child: state is ManageOrganizationsSuccessState
+                          ? state.organizations.isNotEmpty
+                              ? ListView.separated(
+                                  itemBuilder: (context, index) =>
+                                      CustomOrganizationCard(
+                                    manageOrganizationsBloc:
+                                        manageOrganizationsBloc,
+                                    organisationDetails:
+                                        state.organizations[index],
+                                  ),
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(height: 10),
+                                  itemCount: state.organizations.length,
+                                )
+                              : const Center(
+                                  child: Text('No Organisations Found!'))
+                          : const Center(child: CupertinoActivityIndicator()),
+                    ),
                   ],
                 );
               },
@@ -184,8 +206,12 @@ class _OrganizationManagementState extends State<OrganizationManagement> {
 }
 
 class CustomOrganizationCard extends StatelessWidget {
+  final ManageOrganizationsBloc manageOrganizationsBloc;
+  final dynamic organisationDetails;
   const CustomOrganizationCard({
     super.key,
+    required this.organisationDetails,
+    required this.manageOrganizationsBloc,
   });
 
   @override
@@ -210,8 +236,8 @@ class CustomOrganizationCard extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(boxBorederRadius),
-                      child: Image.asset(
-                        "assets/img.jpg",
+                      child: Image.network(
+                        organisationDetails['photo'],
                         width: 150,
                         height: 150,
                         fit: BoxFit.cover,
@@ -222,7 +248,7 @@ class CustomOrganizationCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "#ID",
+                        "#${organisationDetails['id'].toString()}",
                         style: GoogleFonts.poppins(
                           color: Colors.grey,
                           textStyle: Theme.of(context).textTheme.bodyMedium,
@@ -230,7 +256,7 @@ class CustomOrganizationCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Organizations",
+                        organisationDetails['name'],
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           textStyle: Theme.of(context).textTheme.titleLarge,
@@ -259,12 +285,34 @@ class CustomOrganizationCard extends StatelessWidget {
                     ],
                   ),
                   const Expanded(child: SizedBox()),
-                  CustomActionButton(
-                    iconData: Icons.block,
-                    onPressed: () {},
-                    label: "Block",
-                    buttonType: ButtonType.secondary,
-                  )
+                  if (organisationDetails['status'] == 'active')
+                    CustomActionButton(
+                      iconData: Icons.block,
+                      onPressed: () {
+                        manageOrganizationsBloc.add(
+                          ChangeStatusOrganizationEvent(
+                            id: organisationDetails['id'],
+                            status: 'banned',
+                          ),
+                        );
+                      },
+                      label: "Ban Organisation",
+                      buttonType: ButtonType.secondary,
+                    ),
+                  if (organisationDetails['status'] == 'banned')
+                    CustomActionButton(
+                      iconData: Icons.done,
+                      onPressed: () {
+                        manageOrganizationsBloc.add(
+                          ChangeStatusOrganizationEvent(
+                            id: organisationDetails['id'],
+                            status: 'active',
+                          ),
+                        );
+                      },
+                      label: "Unban Organisation",
+                      buttonType: ButtonType.primary,
+                    )
                 ],
               ),
               const Divider(),

@@ -24,22 +24,18 @@ class RequestManagement extends StatelessWidget {
                 children: [
                   CustomRequestButton(
                     label: "Active Request",
-                    amount: "10",
                     onTap: () {},
                   ),
                   CustomRequestButton(
                     label: "Pending Request",
-                    amount: "10",
                     onTap: () {},
                   ),
                   CustomRequestButton(
                     label: "Declined Request",
-                    amount: "10",
                     onTap: () {},
                   ),
                   CustomRequestButton(
                     label: "Success Request",
-                    amount: "10",
                     onTap: () {},
                   ),
                 ],

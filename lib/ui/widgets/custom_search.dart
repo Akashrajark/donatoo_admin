@@ -48,9 +48,10 @@ class _CustomSearchState extends State<CustomSearch> {
             ),
           ),
         ),
-        const SizedBox(
-          width: 15,
-        ),
+        if (_searchController.text.trim().isNotEmpty)
+          const SizedBox(
+            width: 15,
+          ),
         _searchController.text.trim().isNotEmpty
             ? CustomActionButton(
                 iconData: Icons.search,
@@ -62,9 +63,10 @@ class _CustomSearchState extends State<CustomSearch> {
                 label: 'Search',
               )
             : const SizedBox(),
-        const SizedBox(
-          width: 15,
-        ),
+        if (_searchController.text.trim().isNotEmpty)
+          const SizedBox(
+            width: 15,
+          ),
         _lastValue.isNotEmpty
             ? CustomActionButton(
                 iconData: Icons.clear,

@@ -24,12 +24,10 @@ class RequestReportScreen extends StatelessWidget {
                 children: [
                   CustomRequestButton(
                     label: "Pending Report",
-                    amount: "10",
                     onTap: () {},
                   ),
                   CustomRequestButton(
                     label: "Checked Report",
-                    amount: "7",
                     onTap: () {},
                   ),
                 ],

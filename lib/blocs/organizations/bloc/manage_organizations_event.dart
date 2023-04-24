@@ -28,7 +28,7 @@ class AddOrganizationEvent extends ManageOrganizationsEvent {
       bankName,
       branchName,
       ifscCode;
-  final Uint8List image;
+  final PlatformFile image;
 
   AddOrganizationEvent(
       {required this.image,
@@ -64,10 +64,10 @@ class EditOrganizationEvent extends ManageOrganizationsEvent {
       bankName,
       branchName,
       ifscCode;
-  final Uint8List image;
+  final PlatformFile? image;
 
   EditOrganizationEvent({
-    required this.image,
+    this.image,
     required this.phone,
     required this.email,
     required this.category,
@@ -88,11 +88,10 @@ class EditOrganizationEvent extends ManageOrganizationsEvent {
 
 class ChangeStatusOrganizationEvent extends ManageOrganizationsEvent {
   final int id;
-  final String name, status;
+  final String status;
 
   ChangeStatusOrganizationEvent({
     required this.id,
-    required this.name,
     required this.status,
   });
 }
