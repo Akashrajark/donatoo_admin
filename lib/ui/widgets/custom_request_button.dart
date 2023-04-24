@@ -45,7 +45,7 @@ class _CustomRequestButtonState extends State<CustomRequestButton> {
                 widget.label,
                 style: GoogleFonts.poppins(
                   color: widget.isActive ? secondaryColor : primaryColor,
-                  textStyle: Theme.of(context).textTheme.titleLarge,
+                  textStyle: Theme.of(context).textTheme.titleMedium,
                   fontWeight: FontWeight.w500,
                 ),
               ),
