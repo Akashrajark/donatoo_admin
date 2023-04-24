@@ -1,4 +1,3 @@
-import 'package:demo/blocs/organizations/bloc/manage_organizations_bloc.dart';
 import 'package:demo/ui/widgets/custom_alert_dialog.dart';
 import 'package:demo/util/value_validators.dart';
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../blocs/manage_organizations/manage_organizations_bloc.dart';
 import '../../values/colors.dart';
 import 'custom_button.dart';
 

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../blocs/organizations/bloc/manage_organizations_bloc.dart';
+import '../../blocs/manage_organizations/manage_organizations_bloc.dart';
 import '../widgets/add_organization_dialog.dart';
 import '../widgets/custom_request_button.dart';
 import '../widgets/custom_search.dart';
