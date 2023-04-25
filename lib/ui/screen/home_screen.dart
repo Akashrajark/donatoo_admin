@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     _tabController = TabController(
-      length: 6,
+      length: 5,
       initialIndex: 0,
       vsync: this,
     );
@@ -58,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen>
         return "Request Report";
       case 4:
         return "Organization Report";
-      case 5:
-        return "Feedback";
+      // case 5:
+      //   return "Feedback";
       default:
         return "";
     }
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen>
           OrganizationManagement(),
           RequestReportScreen(),
           OrganizationReportScreen(),
-          FeedBackScreen()
+          // FeedBackScreen()
         ],
       ),
       drawer: SizedBox(
@@ -170,14 +170,14 @@ class _HomeScreenState extends State<HomeScreen>
                     },
                     isActive: _tabController.index == 4,
                   ),
-                  CustomIconButton(
-                    iconData: Icons.forum,
-                    onTap: () {
-                      _tabController.animateTo(5);
-                    },
-                    label: "Feedback",
-                    isActive: _tabController.index == 5,
-                  ),
+                  // CustomIconButton(
+                  //   iconData: Icons.forum,
+                  //   onTap: () {
+                  //     _tabController.animateTo(5);
+                  //   },
+                  //   label: "Feedback",
+                  //   isActive: _tabController.index == 5,
+                  // ),
                   CustomIconButton(
                     isActive: false,
                     iconData: Icons.logout,
