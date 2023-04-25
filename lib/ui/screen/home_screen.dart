@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     _tabController = TabController(
       length: 7,
-      initialIndex: 2,
+      initialIndex: 0,
       vsync: this,
     );
     _tabController.addListener(() {

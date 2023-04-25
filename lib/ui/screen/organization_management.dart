@@ -264,7 +264,7 @@ class CustomOrganizationCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Category",
+                        organisationDetails['category'],
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           textStyle: Theme.of(context).textTheme.bodyLarge,
@@ -272,14 +272,22 @@ class CustomOrganizationCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 4,
+                        height: 15,
                       ),
                       Text(
-                        "snksndfsndkfsndkfn",
+                        "Funded",
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           textStyle: Theme.of(context).textTheme.bodyMedium,
                           fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        '₹${organisationDetails['total_payment']}',
+                        style: GoogleFonts.poppins(
+                          color: Colors.green,
+                          textStyle: Theme.of(context).textTheme.titleLarge,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -315,79 +323,96 @@ class CustomOrganizationCard extends StatelessWidget {
                     )
                 ],
               ),
-              const Divider(),
+              const Divider(height: 30),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      organisationDetails['about_org'],
+                      style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   CustomLabelText(
                     label: "Email",
-                    text: "Donatoo@gmail.com",
+                    text: organisationDetails['email'],
                   ),
                   CustomLabelText(
                     alignment: CrossAxisAlignment.end,
                     label: "phone",
-                    text: "7894561230",
+                    text: organisationDetails['phone'],
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   CustomLabelText(
-                    label: "addressline",
-                    text: "enthohouse",
+                    label: "Address Line",
+                    text: organisationDetails['address_line'],
                   ),
                   CustomLabelText(
                     alignment: CrossAxisAlignment.end,
-                    label: "place ",
-                    text: "morazha",
+                    label: "Place ",
+                    text: organisationDetails['place'],
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   CustomLabelText(
-                    label: "district",
-                    text: "enthohouse",
+                    label: "District",
+                    text: organisationDetails['district'],
                   ),
                   CustomLabelText(
                     alignment: CrossAxisAlignment.end,
-                    label: "state ",
-                    text: "kerala",
+                    label: "State ",
+                    text: organisationDetails['state'],
                   ),
                 ],
               ),
-              const CustomLabelText(
-                label: "pincode ",
-                text: "456871",
+              CustomLabelText(
+                label: "Pincode ",
+                text: organisationDetails['pincode'].toString(),
               ),
               const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   CustomLabelText(
                     label: "Bank Name",
-                    text: "SBI",
+                    text: organisationDetails['bank_name'],
                   ),
                   CustomLabelText(
                     alignment: CrossAxisAlignment.end,
                     label: "Branch Name",
-                    text: "kerala",
+                    text: organisationDetails['branch_name'],
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   CustomLabelText(
                     label: "Bank Account",
-                    text: "45465454123",
+                    text: organisationDetails['bank_account'],
                   ),
                   CustomLabelText(
                     alignment: CrossAxisAlignment.end,
                     label: "IFSC code ",
-                    text: "56465465",
+                    text: organisationDetails['ifsc_code'],
                   ),
                 ],
               ),
