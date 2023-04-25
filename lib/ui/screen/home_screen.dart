@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     _tabController = TabController(
-      length: 7,
+      length: 6,
       initialIndex: 0,
       vsync: this,
     );
@@ -53,13 +53,12 @@ class _HomeScreenState extends State<HomeScreen>
         return "Request Management";
       case 2:
         return "Organization Management";
+
       case 3:
-        return "User";
-      case 4:
         return "Request Report";
-      case 5:
+      case 4:
         return "Organization Report";
-      case 6:
+      case 5:
         return "Feedback";
       default:
         return "";
@@ -94,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen>
           Dashboard(),
           RequestManagement(),
           OrganizationManagement(),
-          UserScreen(),
           RequestReportScreen(),
           OrganizationReportScreen(),
           FeedBackScreen()
@@ -157,36 +155,28 @@ class _HomeScreenState extends State<HomeScreen>
                     isActive: _tabController.index == 2,
                   ),
                   CustomIconButton(
-                    iconData: Icons.person_4,
+                    iconData: Icons.rule,
+                    label: "Request Report",
                     onTap: () {
                       _tabController.animateTo(3);
                     },
-                    label: "User",
                     isActive: _tabController.index == 3,
                   ),
                   CustomIconButton(
                     iconData: Icons.rule,
-                    label: "Request Report",
+                    label: "Organization Report",
                     onTap: () {
                       _tabController.animateTo(4);
                     },
                     isActive: _tabController.index == 4,
                   ),
                   CustomIconButton(
-                    iconData: Icons.rule,
-                    label: "Organization Report",
+                    iconData: Icons.forum,
                     onTap: () {
                       _tabController.animateTo(5);
                     },
-                    isActive: _tabController.index == 5,
-                  ),
-                  CustomIconButton(
-                    iconData: Icons.forum,
-                    onTap: () {
-                      _tabController.animateTo(6);
-                    },
                     label: "Feedback",
-                    isActive: _tabController.index == 6,
+                    isActive: _tabController.index == 5,
                   ),
                   CustomIconButton(
                     isActive: false,
